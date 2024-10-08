@@ -1,0 +1,8 @@
+[Unit]
+Description=Script d'exécution automatique à l'insertion de la clé USB
+
+[Service]
+ExecStart=/home/digitalli/automount.sh
+
+[Install]
+WantedBy=multi-user.target

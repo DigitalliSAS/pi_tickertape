@@ -26,23 +26,26 @@ echo "Clé USB montée sur $mount_point.">>$LOG
 
 # 4. Exécuter le script sur la clé USB
 script_path="$mount_point/update_tape.sh"
-
+echo "run update_tape.sh" >>$LOG
 if [ -f "$script_path" ]; then
+  dos2unix $script_path
   chmod +x $script_path
   $script_path
-  echo "run update_tape.sh" >>$LOG
+  echo "update_tape.sh ok !" >>$LOG
 else
   echo "Aucun script trouvé sur la clé USB.">>$LOG
 fi
 
 # 5. Démonter la clé USB après exécution
-#sudo umount $mount_point
+sudo umount $mount_point
 
-#if [ $? -eq 0 ]; then
-#  echo "Clé USB démontée avec succès."
-#else
-#  echo "Échec du démontage de la clé USB."
-#fi
+if [ $? -eq 0 ]; then
+  echo "Clé USB démontée avec succès."
+else
+  echo "Échec du démontage de la clé USB."
+fi
 
 # 6. Nettoyage (supprimer le point de montage)
-#sudo rmdir $mount_point
+sudo rmdir $mount_point
+
+sudo systemctl stop usb_script.service

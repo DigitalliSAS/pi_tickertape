@@ -40,9 +40,9 @@ fi
 sudo umount $mount_point
 
 if [ $? -eq 0 ]; then
-  echo "Clé USB démontée avec succès."
+  echo "Clé USB démontée avec succès.">>$LOG
 else
-  echo "Échec du démontage de la clé USB."
+  echo "Échec du démontage de la clé USB.">>$LOG
 fi
 
 # 6. Nettoyage (supprimer le point de montage)

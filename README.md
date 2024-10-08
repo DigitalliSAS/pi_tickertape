@@ -1,4 +1,4 @@
 # pi_tickertape_new
 PI 3B+
 
-- [ ] test
+- [ ] Gérer le fichier update_tape.sh pour correspondre avec ancienne version

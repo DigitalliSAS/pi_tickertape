@@ -3,6 +3,8 @@ Description=Script d'exécution automatique à l'insertion de la clé USB
 
 [Service]
 ExecStart=/home/digitalli/automount.sh
+StandardOutput=journal
+StandardError=journal
 
 [Install]
 WantedBy=multi-user.target

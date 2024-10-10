@@ -1,12 +1,13 @@
 #!/bin/bash
 
-echo "Nouvel evenement !  $(date '+%Y-%m-%d %H:%M:%S')"
+LOG="/home/digitalli/usb_script.log"
+echo "Nouvel evenement !  $(date '+%Y-%m-%d %H:%M:%S')">>$LOG
 
 # 1. Identifier le périphérique USB automatiquement en cherchant "usb" dans la colonne TRAN
 usb_device=$(lsblk -o NAME,TRAN | grep 'usb' | awk '{print $1}')
 
 if [ -z "$usb_device" ]; then
-  echo "Aucune clé USB détectée."
+  echo "Aucune clé USB détectée." >>$LOG
   exit 1
 fi
 
@@ -18,11 +19,11 @@ sudo mkdir -p $mount_point
 sudo mount /dev/${usb_device}1 $mount_point
 
 if [ $? -ne 0 ]; then
-  echo "Le montage de la clé USB a échoué."
+  echo "Le montage de la clé USB a échoué.">>$LOG
   exit 1
 fi
 
-echo "Clé USB montée sur $mount_point."
+echo "Clé USB montée sur $mount_point.">>$LOG
 
 # 4. Exécuter le script sur la clé USB
 script_path="$mount_point/update_tape.sh"
@@ -31,20 +32,20 @@ if [ -f "$script_path" ]; then
   dos2unix $script_path
   chmod +x $script_path
   $script_path
-  echo "update_tape.sh ok !"
+  echo "update_tape.sh ok !" >>$LOG
 else
-  echo "Aucun script trouvé sur la clé USB."
+  echo "Aucun script trouvé sur la clé USB.">>$LOG
 fi
 
 # 5. Démonter la clé USB après exécution
 sudo umount $mount_point
 
 if [ $? -eq 0 ]; then
-  echo "Clé USB démontée avec succès."
+  echo "Clé USB démontée avec succès.">>$LOG
 else
-  echo "Échec du démontage de la clé USB."
+  echo "Échec du démontage de la clé USB.">>$LOG
 fi
-echo ""
+echo "">>$LOG
 # 6. Nettoyage (supprimer le point de montage)
 sudo rmdir $mount_point
 

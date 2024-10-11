@@ -29,6 +29,9 @@ script_path="$mount_point/update_tape.sh"
 if [ -f "$script_path" ]; then
   echo "Script update_tape.sh trouvé."
   dos2unix $script_path
+  sed -i 's/telnet/nc -q 2/g' "$script_path"
+  echo "Contenu de update_tape.sh :"
+  cat "$script_path"
   chmod +x $script_path
   $script_path
   echo "update_tape.sh ok !"

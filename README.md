@@ -1,8 +1,8 @@
 # pi_tickertape_new
 PI 3B+
 
-- [ ] Gérer le fichier update_tape.sh pour correspondre avec ancienne version
-
+Script udpate_tape.sh reste inchangé pour garder un seul et même script.
+Le script automount.sh converti "telnet" en "nc -q 2"
 
 Logs:
 -journalctl -u usb_script.service

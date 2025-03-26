@@ -19,9 +19,9 @@ sudo sed -i '
 /^\[ipv4\]/,/^\[ipv6\]/{
     s/^method=auto$/method=manual/
     t
-    s/^$/addresses=192.168.23.254\/24\n/
-#gateway=192.168.1.1\
-#dns=8.8.8.8,8.8.4.4;\
+    s/^$/addresses=192.168.23.250\/24\
+gateway=192.168.1.1\
+dns=8.8.8.8,8.8.4.4;\n/
 }' "$file_path"
 
 # Fixer les permissions du fichier pour NetworkManager

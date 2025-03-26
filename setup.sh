@@ -20,7 +20,7 @@ sudo sed -i '
     s/^method=auto$/method=manual/
     t
     s/^$/addresses=192.168.23.250\/24\
-gateway=192.168.1.1\
+gateway=192.168.23.254\
 dns=8.8.8.8,8.8.4.4;\n/
 }' "$file_path"
 

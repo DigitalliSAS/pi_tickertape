@@ -1,21 +1,10 @@
 #!/bin/bash
 
-# Chemin vers le fichier à modifier dans /etc
-cp /run/NetworkManager/system-connections/Wired\ connection\ 1.nmconnection /etc/NetworkManager/system-connections/Wired\ connection\ 1.nmconnection
-file_path="/etc/NetworkManager/system-connections/Wired connection 1.nmconnection"
-
-# Remplacer uniquement method=auto par method=manual dans [ipv4]
-sudo sed -i '
-/^\[ipv4\]/,/^\[ipv6\]/{
-    s/^method=auto$/method=manual/
-    t
-    s/^$/addresses=192.168.1.210\/24\
-gateway=192.168.1.1\
-dns=8.8.8.8,8.8.4.4;\n/
-}' "$file_path"
-
-# Fixer les permissions du fichier pour NetworkManager
-sudo chmod 600 "$file_path"
-
-# Afficher un message de succès
-echo "Le fichier $file_path a été modifié avec succès pour IPv4. IPv6 est inchangé."
+echo "Gestion IP Statique Raspberry"
+if sudo cp /run/NetworkManager/system-connections/Wired\ connection\ 1.nmconnection "$file_path" \
+   && sudo sed -i '/\[ipv4\]/,/^method=auto$/c\[ipv4]\naddress1=192.168.23.250/24,192.168.23.254\ndns=8.8.8.8;8.8.4.4;\nmethod=manual' "$file_path" \
+   && sudo chmod 600 "$file_path"; then
+    echo "✅ Le fichier $file_path a été modifié avec succès pour IPv4. IPv6 est inchangé."
+else
+    echo "❌ Une erreur est survenue lors de la modification du fichier." >&2
+fi

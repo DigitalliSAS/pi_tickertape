@@ -1,7 +1,9 @@
 # pi_tickertape
 Pour Pi 3B+  
 OS : Bookworm 32bits version Desktop  
-IP : 192.168.23.250
+IP : 192.168.23.250  
+user : digitalli  
+password : motdepassehabituel
 
 Script udpate_tape.sh reste inchangé pour garder un seul et même script.
 Le script automount.sh converti "telnet" en "nc -q 2"
